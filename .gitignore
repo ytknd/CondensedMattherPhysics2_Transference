@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Specifics
+MT.h
+*.txt
+*.png
