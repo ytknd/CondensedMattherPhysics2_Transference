@@ -6,9 +6,9 @@
 
 
 int main (void) {
-    int spin_state, sf, sum_spin = 0, mesh = 10, monte_carlo_step = 500;
+    int spin_state, hamiltonian, sum_spin = 0, mesh = 10, monte_carlo_step = 500;
     int spin[mesh][mesh];
-    double kt = 0.01, ex, random;
+    double boltmann_temperature = 0.01, reversal_check, random;
 
     init_genrand ((unsigned) time (NULL));
 
@@ -37,12 +37,12 @@ int main (void) {
     for (int kk = 0; kk < monte_carlo_step; kk++) {
         for (int i= 1; i < mesh - 1; i++) {
             for(int j = 1; j < mesh - 1; j++) {
-                sf = 2 * spin[i][j] * (spin[i - 1][j] + spin[i + 1][j] + spin[i][j - 1] + spin[i][j + 1]);
+                hamiltonian = 2 * spin[i][j] * (spin[i - 1][j] + spin[i + 1][j] + spin[i][j - 1] + spin[i][j + 1]);
 
-                ex = exp(-sf / kt);
+                reversal_check = exp(-hamiltonian / boltmann_temperature);
                 random = genrand_real1();
 
-                if (ex > random) {
+                if (reversal_check > random) {
                     spin[i][j] *= -1;
                 }
             }
