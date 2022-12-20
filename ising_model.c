@@ -24,19 +24,14 @@ int main (void) {
         }
     }
 
-    for (int i = 0; i < mesh; i++) {
-        for (int j = 0; j < mesh; j++) {
-
-            spin[0][j] = 0;
-            spin[mesh -1][j] = 0;
-            spin[i][0] = 0;
-            spin[i][mesh -1] = 0;
-        }
-    }
-
     for (int kk = 0; kk < monte_carlo_step; kk++) {
-        for (int i= 1; i < mesh - 1; i++) {
-            for(int j = 1; j < mesh - 1; j++) {
+        for (int i= 0; i < mesh; i++) {
+            for(int j = 0; j < mesh; j++) {
+
+                if (i = 0) {
+                    hamiltonian = 2 * spin[i][j] * (spin[mesh - 1][j] + spin[i + 1][j] + spin[i][mesh - 1] + spin[i][j + 1]);
+                }
+
                 hamiltonian = 2 * spin[i][j] * (spin[i - 1][j] + spin[i + 1][j] + spin[i][j - 1] + spin[i][j + 1]);
 
                 reversal_check = exp(-hamiltonian / boltmann_temperature);
